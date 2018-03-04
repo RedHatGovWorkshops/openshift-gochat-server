@@ -63,19 +63,12 @@ var upgrader = &websocket.Upgrader{
 }
 
 func (r *room) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	glog.Infoln("Request from:", req.Host)
-	if req.Header != nil {
-		for k, v := range req.Header {
-			glog.Infof("Header[%s] value[%s]\n", k, v)
-		}
-	}
 
 	socket, err := upgrader.Upgrade(w, req, nil)
 	if err != nil {
 		glog.Errorln("ServeHTTP:", err)
 		return
 	}
-
 
 	client := &client{
 		socket:   socket,
